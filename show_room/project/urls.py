@@ -8,7 +8,7 @@ urlpatterns = [
     path('index',index,name= 'index'),
     path('project/',project_detail,name='project_detail'),
     path("",register_request, name="register"),
-    path(r'^logout/',user_logout,name='user_logout'),
+    path('logout/',user_logout,name='user_logout'),
     path('login/',login_request,name="login"),
 ]
 

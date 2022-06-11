@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 # Create your views here.

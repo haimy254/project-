@@ -12,11 +12,8 @@ class Project(models.Model):
         unique=True, 
         blank=True
     )
-    # profile = models.ForeignKey(
-    #     User, on_delete=models.CASCADE)
-    
-    
-    
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
+ 
     class Meta:
         ordering = ['-post_time']
 
@@ -29,4 +26,12 @@ class Project(models.Model):
     def delete_project(self):
         self.delete()
 
+class Profile(models.Model):
     
+        profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics')
+        bio = models.CharField(max_length=200)
+        contact = models.IntegerField()
+        
+        
+        def __str__(self):
+            return f'{self.user.username} Profile'

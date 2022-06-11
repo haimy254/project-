@@ -24,7 +24,12 @@ class Loginform(forms.Form):
 
 
 class ProjectForm(forms.ModelForm):
-    
-    class Meta:
+     class Meta:
         model = Project
         fields = ['title', 'description', 'project_link']
+        
+class ProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = ['profile_pic','bio','contact']

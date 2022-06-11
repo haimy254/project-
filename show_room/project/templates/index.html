@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+{% extends 'base.html'%} {% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success txt-dark">
   <a class="navbar-brand" href="/">SOCIAL APP</a>
   <button
     class="navbar-toggler"
@@ -16,7 +17,7 @@
       
       
       <a class="nav-item nav-link" href="{% url 'login'%}">LOGIN</a>
-     
+      <a class="nav-item nav-link" href="{% url 'project_detail'%}">ADD PROJECT</a>
         <a class="nav-item nav-link" href="{% url 'user_logout' %}"> LOGOUT</a>
     </div>
      {% if user.is_authenticated %}
@@ -24,3 +25,4 @@
        {% endif %}
   </div>
 </nav>
+{% endblock %}
