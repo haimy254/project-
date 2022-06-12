@@ -8,12 +8,13 @@
       <!-- FORM HERE -->
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ profile_form | crispy }} 
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Profile Info</legend>
             {{ p_form|crispy }} <!-- Profile form -->
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
         </div>
     </form>
     </div>

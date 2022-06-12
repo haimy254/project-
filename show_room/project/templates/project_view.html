@@ -7,7 +7,8 @@
     <p id="close-btn">&#215;</p>
     <div class="project-details">
     <div class="card-body" >
-    <p class="card-text">{{ project.title }}</p>
+    <img src="{{ project.image.url }}" alt="Card image cap" style="cursor: pointer; max-height: 170px; min-height: 170px">
+    <p class="card-text">Title: {{ project.title }}</p></br>
     <p class="card-text">{{ project.description }}</p>
     <p class="card-text">{{ project.project_link }}</p>
     </div>

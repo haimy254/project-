@@ -86,7 +86,7 @@ def profile(request):
             return redirect(to='profile')
     else:
         user_form = NewUserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
+        profile_form = ProfileForm()
         
     context = {
         'user_form': user_form,
@@ -94,4 +94,11 @@ def profile(request):
     }
 
 
-    return render(request, 'profile.html' )
+    return render(request, 'profile.html',context )
+
+def profile_view(request):
+    if request.method=="GET":
+        profile=Profile.objects.all();
+       
+      
+    return render(request,'profile.html',{'profile':profile,})
