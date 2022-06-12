@@ -27,11 +27,22 @@ class Project(models.Model):
         self.delete()
 
 class Profile(models.Model):
-    
+        user = models.OneToOneField(User, on_delete=models.CASCADE)
         profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics')
         bio = models.CharField(max_length=200)
         contact = models.IntegerField()
         
         
-        def __str__(self):
-            return f'{self.user.username} Profile'
+        # def __str__(self):
+        #     return f'{self.user.username} Profile'
+        
+        # def save(self):
+        #     # super().save()
+
+        #     profile_pic = Project.open(Self.user.path) # Open image
+        
+        # # resize image
+        #     if profile_pic.height > 300 or profile_pic.width > 300:
+        #         output_size = (300, 300)
+        #         profile_pic.thumbnail(output_size) # Resize image
+        #         profile_pic.save(Self.projects.path)

@@ -67,3 +67,27 @@ def project_detail(request):
         project_form = ProjectForm()
 
     return render(request,'project_detail.html', { 'new_project': new_project,'project_form': project_form})
+
+@login_required
+class ProfileView():
+    profile = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.profile, __ = Profile.objects.get_or_create(user=request.user)
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        context = {'profile': self.profile}
+        return render(request, 'customers/profile.html', context)
+
+    def post(self, request):
+        form = ProfileForm(request.POST, request.FILES, instance=self.profile)
+
+        if form.is_valid():
+            profile = form.save()
+          
+            
+            messages.success(request, 'Profile saved successfully')
+        else:
+            messages.error(request, form_validation_error(form))
+        return redirect('user/profile')

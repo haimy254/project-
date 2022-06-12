@@ -33,3 +33,15 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic','bio','contact']
+        
+
+def form_validation_error(form):
+    """
+    Form Validation Error
+    If any error happened in your form, this function returns the error message.
+    """
+    msg = ""
+    for field in form:
+        for error in field.errors:
+            msg += "%s: %s \\n" % (field.label if hasattr(field, 'label') else 'Error', error)
+    return msg
