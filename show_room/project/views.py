@@ -9,17 +9,18 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 # Create your views here.
+
 def register_request(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
 		if form.is_valid():
-			user = form.save()
-			login(request, user)
+			user =form.save()
+			login(request,user)
 			messages.success(request, "Registration successful." )
-			return redirect("login")
+			return redirect("home")
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm()
-	return render (request=request, template_name="accounts/register.html", context={"register_form":form})
+	return render (request=request, template_name="home.html", context={"register_form":form})
 
 def login_request(request):
 	if request.method == "POST":
@@ -45,12 +46,8 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('index'))  
 
 
-def index(request):
-    '''
-    get all the images from the database and order them by the date they were created
-    '''
-    projects = Project.objects.all()
-    return render(request, 'index.html', {'project': projects})
+def home(request):
+    return render(request, "home")
 
 @login_required(login_url='accounts/login')
 def project_detail(request):
@@ -69,31 +66,25 @@ def display_project(request):
     
     if request.method =="GET":
         project=Project.objects.all();
-        # absolute_url=request.build_absolute_uri()
         return render(request,'project_detail.html',{'all_project':project})
 
 @login_required
 def profile(request):
     # Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        # user_form = NewUserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if profile_form.is_valid():
-            # user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='profile')
     else:
-        # user_form = NewUserForm(instance=request.user)
         profile_form = ProfileForm()
         
     context = {
-        # 'user_form': user_form,
         'profile_form': profile_form
     }
-
-
+    
     return render(request, 'profile.html',context )
 
 def profile_view(request):
@@ -107,8 +98,14 @@ def review(request):
         review_form = ReviewForm(data=request.POST)
         if review_form.is_valid():
             review_form.save()
-            # return redirect('index')
     else:
-        review_form = ProjectForm()
-		# new_project='new_prpoject'
+        review_form = ReviewForm()
+	
     return render(request,'review.html', { 'review_form': review_form})
+
+def display_review(request):
+    
+    if request.method=="GET":
+        review=Review.objects.all();
+        
+    return render(request,'profile_view.html',{'review':review})

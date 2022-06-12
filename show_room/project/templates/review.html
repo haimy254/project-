@@ -9,11 +9,11 @@
   <div class="card-body">
     <form method="post" style="margin-top: 1.3em">
       {{ review_form | crispy }} {% csrf_token %}
-      <button type="submit" class="btn btn-primary btn-lg">
+      <button type="submit" class="btn btn-dark btn-lg">
         <a href="{% url 'project_view'%}"> Submit</a>
       </button>
     </form>
-    {% endif %}
+    
   </div>
 </div>
 {% endblock content%}

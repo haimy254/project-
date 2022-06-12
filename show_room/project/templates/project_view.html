@@ -2,7 +2,7 @@
 <h4>PROJECTS</h4>
 {% if all_project %}
 <div class="container">
-  {% for project in all_prpoject %}
+  {% for project in all_project %}
   <div class="project-details-overlay hide" id="project-details-overlay">
     <p id="close-btn">&#215;</p>
     <div class="project-details">
@@ -11,10 +11,17 @@
     <p class="card-text">Title: {{ project.title }}</p></br>
     <p class="card-text">{{ project.description }}</p>
     <p class="card-text">{{ project.project_link }}</p>
+   
     </div>
     </div>
   </div>
   {% endfor %}
+  {% endif %}
+  {% if review %}
+  {% for review in review%}
+   <p class="card-text">{{ review.rate }}</p>
+    <p class="card-text">{{ review.review }}</p>
+    {% endfor %}
 </div>
-{% endif %}
+{% endif%}
 {% endblock content %}
