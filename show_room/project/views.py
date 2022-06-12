@@ -16,10 +16,10 @@ def register_request(request):
 			user = form.save()
 			login(request, user)
 			messages.success(request, "Registration successful." )
-			return redirect("index")
+			return redirect("login")
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm()
-	return render (request=request, template_name="index.html", context={"register_form":form})
+	return render (request=request, template_name="accounts/register.html", context={"register_form":form})
 
 def login_request(request):
 	if request.method == "POST":
@@ -74,22 +74,22 @@ def display_project(request):
 
 @login_required
 def profile(request):
-    Profile.objects.get_or_create(user=request.user)
+    # Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        user_form = NewUserForm(request.POST, instance=request.user)
+        # user_form = NewUserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if profile_form.is_valid():
+            # user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='profile')
     else:
-        user_form = NewUserForm(instance=request.user)
+        # user_form = NewUserForm(instance=request.user)
         profile_form = ProfileForm()
         
     context = {
-        'user_form': user_form,
+        # 'user_form': user_form,
         'profile_form': profile_form
     }
 
@@ -99,6 +99,4 @@ def profile(request):
 def profile_view(request):
     if request.method=="GET":
         profile=Profile.objects.all();
-       
-      
-    return render(request,'profile.html',{'profile':profile,})
+    return render(request,'profile_view.html',{'profile':profile,})

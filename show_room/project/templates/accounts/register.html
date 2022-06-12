@@ -1,5 +1,6 @@
 {% extends 'base.html'%} {% block content %}
-<section >
+<section class="vh-100 bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -43,7 +44,9 @@
 
                 <div class="d-flex justify-content-center">
                   <button type="submit"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                    <a href="{% url 'login'%}"></a>
+                  Register</button>
                 </div>
 
 
@@ -62,21 +65,4 @@
 </section>
 {% endblock %}
 
-<p type="submit">Register</p>
-<form action="" method="POST">
-{% csrf_token %}
 
-{{form.username.label}}
-{{form.username}}
-
-{{form.email.label}}
-{{form.email}}
-
-{{form.password1.label}}
-{{form.password1}}
-
-{{form.password2.label}}
-{{form.password2}}
-
-<input type="submit" name="create user">
-</form>
