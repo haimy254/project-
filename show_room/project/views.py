@@ -100,3 +100,15 @@ def profile_view(request):
     if request.method=="GET":
         profile=Profile.objects.all();
     return render(request,'profile_view.html',{'profile':profile,})
+
+
+def review(request):
+    if request.method == 'POST':
+        review_form = ReviewForm(data=request.POST)
+        if review_form.is_valid():
+            review_form.save()
+            # return redirect('index')
+    else:
+        review_form = ProjectForm()
+		# new_project='new_prpoject'
+    return render(request,'review.html', { 'review_form': review_form})

@@ -13,6 +13,7 @@ urlpatterns = [
      path('profile/',profile, name='user_profile'),
     path('project_view/',display_project,name="project_view"),
     path('profile_view/',profile_view,name="profile"),
+    path('review/',review,name= 'review'),
     
 ]
 
