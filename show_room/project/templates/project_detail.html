@@ -27,17 +27,11 @@
           Your project is awaiting reviewing
         </div>
         {% else %}
-        <form method="post" style="margin-top: 1.3em">
+        <form method="post" style="margin-top: 1.3em" action="/save_project/">
           {{ project_form | crispy }} {% csrf_token %}
-          <button
-            type="submit"
-            class="btn btn-primary btn-lg" 
-            ><a href="{% url 'project_view'%}">
-            Submit</a>
-          </button>
+          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </form>
-        {% endif %} 
-        {% for project in all_project %}
+        {% endif %} {% for project in all_project %}
         <div class="project" style="padding: 10px">
           <p class="font-weight-bold">
             {{ project.title }}

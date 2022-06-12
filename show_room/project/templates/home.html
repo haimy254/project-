@@ -1,1 +1,29 @@
-<p>good</p>
+{% extends 'base.html'%} {% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-success txt-dark">
+  <a class="navbar-brand" href="/">SHOW ROOM</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      
+      
+      <a class="nav-item nav-link" href="{% url 'login'%}">LOGIN</a>
+      <a class="nav-item nav-link" href="{% url 'register'%} ">REGISTRATION</a>
+      <a class="nav-item nav-link" href="{% url 'project_detail'%}">ADD PROJECT</a>
+        <a class="nav-item nav-link" href="{% url 'user_logout' %}"> LOGOUT</a>
+    </div>
+     {% if user.is_authenticated %}
+      <a href="#">Hi {{user.username}}</a>
+       {% endif %}
+  </div>
+</nav>
+{% endblock %}

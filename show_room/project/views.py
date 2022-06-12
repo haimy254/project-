@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Project
+from django.db import transaction
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -43,30 +44,35 @@ def login_request(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))  
+    return HttpResponseRedirect(reverse('home'))  
 
 
-def home(request):
+def index(request):
     return render(request, "home")
 
 @login_required(login_url='accounts/login')
-def project_detail(request):
-    # template_name = 'project_detail.html'
+@transaction.atomic
+def save_project(request):
     if request.method == 'POST':
         project_form = ProjectForm(data=request.POST)
-        if project_form.is_valid():
-            project_form.save()
-            # return redirect('index')
+        print("hello")
+        if project_form.is_valid(): 
+            
+            obj=project_form.save(commit=False)
+            obj.profile_id=request.user.id
+            obj.save()
+            return HttpResponseRedirect('/project_view/')
     else:
         project_form = ProjectForm()
 		# new_project='new_prpoject'
     return render(request,'project_detail.html', { 'project_form': project_form})
 
-def display_project(request):
-    
-    if request.method =="GET":
-        project=Project.objects.all();
-        return render(request,'project_detail.html',{'all_project':project})
+
+def display_projects(request):
+    # get all projects from db
+    project=Project.objects.all();
+    return render(request,'project_detail.html',{'all_project':project})
+        
 
 @login_required
 def profile(request):

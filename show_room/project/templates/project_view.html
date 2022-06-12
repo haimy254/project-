@@ -1,4 +1,4 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% extends 'home.html'%}{% block content %}
 <h4>PROJECTS</h4>
 {% if all_project %}
 <div class="container">
@@ -10,7 +10,8 @@
     <img src="{{ project.image.url }}" alt="Card image cap" style="cursor: pointer; max-height: 170px; min-height: 170px">
     <p class="card-text">Title: {{ project.title }}</p></br>
     <p class="card-text">{{ project.description }}</p>
-    <p class="card-text">{{ project.project_link }}</p>
+    <p class="card-text"><a href="{{ project.project_link }}"></a></p>
+    <!--check there might be some of your styles preventing it from picking okay hun i will-->
    
     </div>
     </div>
