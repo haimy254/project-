@@ -1,0 +1,19 @@
+{% extends 'base.html'%} {% block content %}
+<h4>PROJECTS</h4>
+{% if all_project %}
+<div class="container">
+  {% for project in all_prpoject %}
+  <div class="project-details-overlay hide" id="project-details-overlay">
+    <p id="close-btn">&#215;</p>
+    <div class="project-details">
+    <div class="card-body" >
+    <p class="card-text">{{ project.title }}</p>
+    <p class="card-text">{{ project.description }}</p>
+    <p class="card-text">{{ project.project_link }}</p>
+    </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock content %}

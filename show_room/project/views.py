@@ -55,7 +55,7 @@ def index(request):
 
 def project_detail(request):
     # template_name = 'project_detail.html'
-    new_project = None
+    new_project =Project.objects.create(current_user='user')
    
     if request.method == 'POST':
         project_form = ProjectForm(data=request.POST)
@@ -68,26 +68,32 @@ def project_detail(request):
 
     return render(request,'project_detail.html', { 'new_project': new_project,'project_form': project_form})
 
+def display_project(request):
+    
+    if request.method =="GET":
+        project=Project.objects.all();
+        absolute_url=request.build_absolute_uri()
+        return render(request,'project_view.html',{'all_project':project,"root_url":absolute_url})
+
 @login_required
-class ProfileView():
-    profile = None
+def profile(request):
+    # if request.method == 'POST':
+    #     user_form = NewUserForm(request.POST, instance=request.user)
+    #     profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
-    def dispatch(self, request, *args, **kwargs):
-        self.profile, __ = Profile.objects.get_or_create(user=request.user)
-        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+    #     if user_form.is_valid() and profile_form.is_valid():
+    #         user_form.save()
+    #         profile_form.save()
+    #         messages.success(request, 'Your profile is updated successfully')
+    #         return redirect(to='profile')
+    # else:
+    #     user_form = NewUserForm(instance=request.user)
+    #     profile_form = ProfileForm(instance=request.user.profile)
+        
+    # context = {
+    #     'user_form': user_form,
+    #     'profile_form': profile_form
+    # }
 
-    def get(self, request):
-        context = {'profile': self.profile}
-        return render(request, 'customers/profile.html', context)
 
-    def post(self, request):
-        form = ProfileForm(request.POST, request.FILES, instance=self.profile)
-
-        if form.is_valid():
-            profile = form.save()
-          
-            
-            messages.success(request, 'Profile saved successfully')
-        else:
-            messages.error(request, form_validation_error(form))
-        return redirect('user/profile')
+    return render(request, 'profile.html' )

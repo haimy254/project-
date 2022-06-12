@@ -10,7 +10,8 @@ urlpatterns = [
     path("",register_request, name="register"),
     path('logout/',user_logout,name='user_logout'),
     path('login/',login_request,name="login"),
-     path('profile/',ProfileView, name='user_profile'),
+     path('profile/',profile, name='user_profile'),
+    path('project_view/',display_project,name="project_view")
 ]
 
 

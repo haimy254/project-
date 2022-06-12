@@ -26,23 +26,33 @@ class Project(models.Model):
     def delete_project(self):
         self.delete()
 
-class Profile(models.Model):
-        user = models.OneToOneField(User, on_delete=models.CASCADE)
-        profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics')
-        bio = models.CharField(max_length=200)
-        contact = models.IntegerField()
+# class Profile(models.Model):
+#         user = models.OneToOneField(User, on_delete=models.CASCADE)
+#         profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics')
+#         bio = models.CharField(max_length=200)
+#         contact = models.IntegerField()
+#     def __str__(self):
+#         return self.user.username
         
-        
-        # def __str__(self):
-        #     return f'{self.user.username} Profile'
-        
-        # def save(self):
-        #     # super().save()
+#     def save(self):
+#         super().save()
 
-        #     profile_pic = Project.open(Self.user.path) # Open image
+#         img = Project.open(self.image.path) # Open image
         
-        # # resize image
-        #     if profile_pic.height > 300 or profile_pic.width > 300:
-        #         output_size = (300, 300)
-        #         profile_pic.thumbnail(output_size) # Resize image
-        #         profile_pic.save(Self.projects.path)
+#         # resize image
+#         if img.height > 300 or img.width > 300:
+#             output_size = (300, 300)
+#             img.thumbnail(output_size) # Resize image
+#             img.save(self.image.path)
+        
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    comment = models.CharField(max_length=200)
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
