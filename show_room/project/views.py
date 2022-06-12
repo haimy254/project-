@@ -52,48 +52,46 @@ def index(request):
     projects = Project.objects.all()
     return render(request, 'index.html', {'project': projects})
 
-
+@login_required(login_url='accounts/login')
 def project_detail(request):
     # template_name = 'project_detail.html'
-    new_project =Project.objects.create(current_user='user')
-   
     if request.method == 'POST':
         project_form = ProjectForm(data=request.POST)
         if project_form.is_valid():
-
-            new_project = project_form.save(commit=False)
-            new_project.save()
+            project_form.save()
+            # return redirect('index')
     else:
         project_form = ProjectForm()
-
-    return render(request,'project_detail.html', { 'new_project': new_project,'project_form': project_form})
+		# new_project='new_prpoject'
+    return render(request,'project_detail.html', { 'project_form': project_form})
 
 def display_project(request):
     
     if request.method =="GET":
         project=Project.objects.all();
-        absolute_url=request.build_absolute_uri()
-        return render(request,'project_view.html',{'all_project':project,"root_url":absolute_url})
+        # absolute_url=request.build_absolute_uri()
+        return render(request,'project_detail.html',{'all_project':project})
 
 @login_required
 def profile(request):
-    # if request.method == 'POST':
-    #     user_form = NewUserForm(request.POST, instance=request.user)
-    #     profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+    Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_form = NewUserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
-    #     if user_form.is_valid() and profile_form.is_valid():
-    #         user_form.save()
-    #         profile_form.save()
-    #         messages.success(request, 'Your profile is updated successfully')
-    #         return redirect(to='profile')
-    # else:
-    #     user_form = NewUserForm(instance=request.user)
-    #     profile_form = ProfileForm(instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='profile')
+    else:
+        user_form = NewUserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
         
-    # context = {
-    #     'user_form': user_form,
-    #     'profile_form': profile_form
-    # }
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
 
 
     return render(request, 'profile.html' )

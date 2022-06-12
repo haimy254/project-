@@ -31,13 +31,13 @@
           {{ project_form | crispy }} {% csrf_token %}
           <button
             type="submit"
-            class="btn btn-primary btn-lg"
-            href="{% url 'index'% }"
-          >
-            Submit
+            class="btn btn-primary btn-lg" 
+            ><a href="{ url 'p'}">
+            Submit</a>
           </button>
         </form>
-        {% endif %} {% for project in projects %}
+        {% endif %} 
+        {% for project in all_project %}
         <div class="project" style="padding: 10px">
           <p class="font-weight-bold">
             {{ project.title }}
