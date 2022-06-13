@@ -107,13 +107,16 @@ def profile_view(request):
 def review(request):
     if request.method == 'POST':
         review_form = ReviewForm(data=request.POST)
+        
         if review_form.is_valid():
             review_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='review')
     else:
         review_form = ReviewForm()
         
     return render(request,'review.html', { 'review_form': review_form})
-
+@transaction.atomic
 def display_review(request):
     
     if request.method=="GET":

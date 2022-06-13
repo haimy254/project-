@@ -10,13 +10,15 @@
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
       crossorigin="anonymous"
     />
-    {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%} " /> {% endcomment %}
-    <link rel="stylesheet" href="{% static 'css/index.css'%} " />
+    {% block 'styel'%}
+  <link rel="stylesheet" href="css/bootstrap.min.css" /> 
+  <link rel="stylesheet" href="..../css/index.css" />
+  {% endblock%}
     <title>SHOW ROOM</title>
   </head>
   <body>
     {% block content%}
-    <h1>Its working</h1>
+    <h1 class>Its working</h1>
     {% endblock%}
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
