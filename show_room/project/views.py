@@ -15,7 +15,7 @@ def register_request(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
 		if form.is_valid():
-			user =form.save()
+			user = form.save()
 			login(request,user)
 			messages.success(request, "Registration successful." )
 			return redirect("home")
@@ -33,7 +33,7 @@ def login_request(request):
 			if user is not None:
 				login(request, user)
 				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("index")
+				return redirect("home")
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -47,15 +47,15 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('home'))  
 
 
-def index(request):
-    return render(request, "home")
+def home(request):
+    return render(request, template_name="home.html")
 
-@login_required(login_url='accounts/login')
+@login_required
 @transaction.atomic
 def save_project(request):
     if request.method == 'POST':
         project_form = ProjectForm(data=request.POST)
-        print("hello")
+       
         if project_form.is_valid(): 
             
             obj=project_form.save(commit=False)
@@ -67,7 +67,7 @@ def save_project(request):
 		# new_project='new_prpoject'
     return render(request,'project_detail.html', { 'project_form': project_form})
 
-
+@login_required
 def display_projects(request):
     # get all projects from db
     project=Project.objects.all();
@@ -75,13 +75,15 @@ def display_projects(request):
         
 
 @login_required
-def profile(request):
-    # Profile.objects.get_or_create(user=request.user)
+@transaction.atomic
+def save_profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if profile_form.is_valid():
+            Profile.objects.get_or_create(user=request.user)
             profile_form.save()
+            
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='profile')
     else:
@@ -93,12 +95,15 @@ def profile(request):
     
     return render(request, 'profile.html',context )
 
+@transaction.atomic
 def profile_view(request):
     if request.method=="GET":
-        profile=Profile.objects.all();
-    return render(request,'profile_view.html',{'profile':profile,})
+        profile=Profile.objects.filter(user=request.user);
+        project = Project.objects.filter(user=request.user);
+    return render(request,'profile_view.html',{'profile':profile,'project':project})
 
-
+@login_required
+@transaction.atomic
 def review(request):
     if request.method == 'POST':
         review_form = ReviewForm(data=request.POST)
@@ -106,12 +111,13 @@ def review(request):
             review_form.save()
     else:
         review_form = ReviewForm()
-	
+        
     return render(request,'review.html', { 'review_form': review_form})
 
 def display_review(request):
     
     if request.method=="GET":
         review=Review.objects.all();
+        project = Project.objects.filter(title=request.project.title);
         
-    return render(request,'profile_view.html',{'review':review})
+    return render(request,'profile_view.html',{'reviews':review,'project':project})

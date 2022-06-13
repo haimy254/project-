@@ -49,4 +49,4 @@ def form_validation_error(form):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model= Review
-        fields = ('rating','review')
+        fields = ('userbility','review','design','content')

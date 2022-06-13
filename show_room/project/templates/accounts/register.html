@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 <section class="vh-100 bg-image">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    {% comment %}
+  
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -66,8 +66,8 @@
         </div>
       </div>
     </div>
-    {% endcomment %}
-    <div class="container py-5">
+    
+    {% comment %} <div class="container py-5">
       <h1>Register</h1>
       <form method="POST">
         {% csrf_token %} {{ register_form|crispy }}
@@ -76,7 +76,7 @@
       <p class="text-center">
         If you already have an account, <a href="/login">login</a> instead.
       </p>
-    </div>
+    </div> {% endcomment %}
   </div>
 </section>
 {% endblock %}

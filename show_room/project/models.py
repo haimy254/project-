@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
         user = models.ForeignKey(User, on_delete=models.CASCADE,default=1,null=True)
-        profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics')
+        profile_pic= models.ImageField(default='default.jpg', upload_to='profile_pics/')
         bio = models.CharField(max_length=200)
         contact = models.IntegerField()
         
@@ -17,9 +17,11 @@ class Profile(models.Model):
 
             img = Project(self.profile_pic.path)
 
+
+    
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
-    image = models.ImageField(default='default.jpg', upload_to='project')
+    image = models.ImageField(default='default.jpg', upload_to='project/')
     title = models.CharField(max_length=90)
     description = models.CharField(max_length=800)
     post_time = models.DateTimeField(auto_now_add=True)
@@ -43,7 +45,6 @@ class Project(models.Model):
     def delete_project(self):
         self.delete()
 
-        
 class Review(models.Model):
     RATING_CHOICES = (
         (1, '1'),
@@ -51,7 +52,15 @@ class Review(models.Model):
         (3, '3'),
         (4, '4'),
         (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'), 
+        (10, '10'),
     )
     review = models.CharField(max_length=200)
-    rating = models.IntegerField(choices=RATING_CHOICES)
+    userbility = models.IntegerField(choices=RATING_CHOICES)
+    content = models.IntegerField(choices=RATING_CHOICES)
+    design = models.IntegerField(choices=RATING_CHOICES)
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+         
