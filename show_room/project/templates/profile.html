@@ -2,20 +2,16 @@
 {% block title %}Profile Page{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
    <div class="row my-3 p-3">
         <h1>This is the profile page for {{user.username}}</h1>
     </div>
       <!-- FORM HERE -->
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ profile_form | crispy }} 
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ p_form|crispy }} <!-- Profile form -->
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit"><a href="">Submit </a></button>
-        </div>
-    </form>
+       <form method="post" style="margin-top: 1.3em" action="/save_project/">
+      {{ profile_form | crispy }} {% csrf_token %}
+      <button type="submit" class="btn btn-primary btn-lg">
+      ADD A PROFILE
+      </button>
+    </div>
     </div>
 {% endblock content %}

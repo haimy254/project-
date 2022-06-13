@@ -2,7 +2,7 @@
 crispy_forms_tags%} {% block content %}
 <section class="pro-view">
   <div class="container">
-    <div class="jumbotron">
+    {% comment %} <div class="jumbotron"> {% endcomment %}
       <h1>profile</h1>
       <h3>User : {{ user.username}}</h3>
       <div class="col-md-4">
@@ -20,7 +20,7 @@ crispy_forms_tags%} {% block content %}
         </div>
         {% endfor %}
       </div>
-    </div>
+    {% comment %} </div> {% endcomment %}
   </div>
 </section>
 {% endblock content %}
