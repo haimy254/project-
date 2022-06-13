@@ -3,21 +3,21 @@
 <div class="container">
   <div class="jumbotron">
     <h1>profile</h1>
-    <h3>{{ user.username}}</h3>
+    <h3>User : {{ user.username}}</h3>
     <div class="col-md-4">
       {% for profile in profile%}
       <img
-        src="{{ project.image.url }}"
+        src="{{ profile.profile_pic.url }}"
         class="img-responsive"
-        style="width: 100%; float: left; margin-right: 10px"
+        style="width: 100%; float: center; margin-right: 10px"
       />
-      <p>{{ profile.bio }}</p>
-      <p>{{ profile.contact}}</p>
+      <p> Bio :{{ profile.bio }}</p>
+      <p>Contacts :{{ profile.contact}}</p>
       {% endfor %}
       {% for project in project %}
       <div class="container">
     
-      <p> prpoject:{{ project.title}}</p>
+      <p> project:{{ project.title}}</p>
       
       </div>
       {% endfor %}
