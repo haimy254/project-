@@ -111,7 +111,7 @@ def review(request):
         if review_form.is_valid():
             review_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='review')
+            return redirect(to='project_detail')
     else:
         review_form = ReviewForm()
         
@@ -121,6 +121,6 @@ def display_review(request):
     
     if request.method=="GET":
         review=Review.objects.all();
-        project = Project.objects.filter(title=request.project.title);
+        project = Project.objects.all(pk=id);
         
-    return render(request,'profile_view.html',{'reviews':review,'project':project})
+    return render(request,'profile_detail.html',{'reviews':review,'project':project})

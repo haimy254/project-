@@ -31,17 +31,18 @@
           {{ project_form | crispy }} {% csrf_token %}
           <button type="submit" class="btn btn-primary btn-lg">ADD A PROJECT</button>
         </form>
-        {% endif %} {% for project in all_project %}
+        {% endif %} 
+        {% for project in all_project %}
          <div class="project-details-overlay hide" id="project-details-overlay">
     <p id="close-btn">&#215;</p>
     <div class="project-details">
     <div class="card-body" >
-    <img src="{{ project.image.url }}" alt="Card image cap" style="cursor: pointer; max-height: 170px; min-height: 170px">
-    <p class="card-text">Title: {{ project.title }}</p></br>
+    <img src="{{ project.image.url }}" alt="" style="cursor: pointer; max-height: 170px; min-height: 170px">
+    <p class="card-text">Title: {{ project.title }}</p>
     <p class="card-text">project:description{{ project.description }}</p>
     <p class="card-text"><link href="{{ project.project_link |linebreaks}}"/>{{ project.project_link}}</p>
+    <button>ADD REVIEW</button>
 
-    
     </div>
     </div>
   </div>
@@ -54,20 +55,20 @@
           </p>
           {{ project.project_link | linebreaks }} {% endcomment %}
         </div>
-        {% endfor %}
-         {% if reviews %}
-  {% for review in reviews %}
-
- 
-   <p class="card-text">{{ review.userbility }}</p>
+              {% if reviews %}
+  {% for review in review %}
+<p class="card-text">{{ reviews.userbility }}</p>
    <p class="card-text">{{ review.content }}</p>
    <p class="card-text">{{ review.design }}</p>
 
     <p class="card-text">{{ review.review }}</p>
     {% endfor %}
+    {% endif %}
+        {% endfor %}
+   
 </div>
 </div>
-{% endif%}
+
       </div>
     </div>
 
