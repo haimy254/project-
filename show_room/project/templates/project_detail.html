@@ -17,7 +17,7 @@
     <div class="col-md-8 card mb-4 mt-3">
       <div class="card-body">
         <!-- projects -->
-        <h2>project</h2>
+        <h2>projects</h2>
       </div>
     </div>
     <div class="col-md-8 card mb-4 mt-3">
@@ -29,20 +29,47 @@
         {% else %}
         <form method="post" style="margin-top: 1.3em" action="/save_project/">
           {{ project_form | crispy }} {% csrf_token %}
-          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+          <button type="submit" class="btn btn-primary btn-lg">ADD A PROJECT</button>
         </form>
         {% endif %} {% for project in all_project %}
-        <div class="project" style="padding: 10px">
+         <div class="project-details-overlay hide" id="project-details-overlay">
+    <p id="close-btn">&#215;</p>
+    <div class="project-details">
+    <div class="card-body" >
+    <img src="{{ project.image.url }}" alt="Card image cap" style="cursor: pointer; max-height: 170px; min-height: 170px">
+    <p class="card-text">Title: {{ project.title }}</p></br>
+    <p class="card-text">project:description{{ project.description }}</p>
+    <p class="card-text"><link href="{{ project.project_link |linebreaks}}"/>{{ project.project_link}}</p>
+
+    
+    </div>
+    </div>
+  </div>
+        {% comment %} <div class="project" style="padding: 10px">
           <p class="font-weight-bold">
             {{ project.title }}
-            <span class="text-muted font-weight-normal">
+            <span class="text-muted font-weight-normal">description:
               {{ project.description }}
             </span>
           </p>
-          {{ project.project_link | linebreaks }}
+          {{ project.project_link | linebreaks }} {% endcomment %}
         </div>
         {% endfor %}
+         {% if reviews %}
+  {% for review in reviews %}
+
+ 
+   <p class="card-text">{{ review.userbility }}</p>
+   <p class="card-text">{{ review.content }}</p>
+   <p class="card-text">{{ review.design }}</p>
+
+    <p class="card-text">{{ review.review }}</p>
+    {% endfor %}
+</div>
+</div>
+{% endif%}
       </div>
     </div>
+
   </body>
 </html>

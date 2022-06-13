@@ -61,7 +61,7 @@ def save_project(request):
             obj=project_form.save(commit=False)
             obj.profile_id=request.user.id
             obj.save()
-            return HttpResponseRedirect('/project_view/')
+            return HttpResponseRedirect('/home/')
     else:
         project_form = ProjectForm()
 		# new_project='new_prpoject'

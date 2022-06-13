@@ -17,7 +17,7 @@
       
       
       <a class="nav-item nav-link" href="{% url 'login'%}">LOGIN</a>
-      <a class="nav-item nav-link" href="{% url 'project_view'%} ">PROJECTS</a>
+      <a class="nav-item nav-link" href="{% url 'project_detail'%} ">PROJECTS</a>
       <a class="nav-item nav-link" href="{% url 'save_project'%}">ADD PROJECT</a>
       <a class="nav-item nav-link" href="{% url 'user_profile'%}">Add PROFILE</a>
         <a class="nav-item nav-link" href="{% url 'user_logout' %}"> LOGOUT</a>
@@ -27,4 +27,36 @@
        {% endif %}
   </div>
 </nav>
+
+
+<div class="container">
+<h4>PROJECTS</h4>
+{% if all_project %}
+<div class="container">
+  {% for project in all_project %}
+  <div class="project-details-overlay hide" id="project-details-overlay">
+    <p id="close-btn">&#215;</p>
+    <div class="project-details">
+    <div class="card-body" >
+    <img src="{{ project.image.url }}" alt="Card image cap" style="cursor: pointer; max-height: 170px; min-height: 170px">
+    <p class="card-text">Title: {{ project.title }}</p></br>
+    <p class="card-text">project:description{{ project.description }}</p>
+    <p class="card-text"><link href="{{ project.project_link }}"/></p>
+    </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% if reviews %}
+  {% for review in reviews %}
+   <p class="card-text">{{ review.userbility }}</p>
+   <p class="card-text">{{ review.content }}</p>
+   <p class="card-text">{{ review.design }}</p>
+
+    <p class="card-text">{{ review.review }}</p>
+    {% endfor %}
+</div>
+</div>
+{% endif%}
+
 {% endblock %}

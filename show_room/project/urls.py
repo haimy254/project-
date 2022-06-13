@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/',login_request,name="login"),
      path('profile/',save_profile, name='user_profile'),
      
-    path('project_view/',display_projects,name="project_view"),
+    path('project_detail/',display_projects,name="project_detail"),
     path('profile_view/',profile_view,name="profile"),
     
     path('review/',review,name= 'review'),
