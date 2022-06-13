@@ -32,7 +32,7 @@ class ProfileForm(forms.ModelForm):
     
     class Meta:
         model = Profile
-        fields = ['profile_pic','bio','contact']
+        fields = ['image','bio','contact']
         
 
 def form_validation_error(form):

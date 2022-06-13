@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-success txt-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light text-light">
   <a class="navbar-brand" href="/">SHOW ROOM</a>
   <button
     class="navbar-toggler"
@@ -12,8 +12,9 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+  <div class="collapse navbar-collapse bg-light
+   txt-light" id="navbarNavAltMarkup">
+    <div class="navbar-nav bg-light ">
       
       
       <a class="nav-item nav-link" href="{% url 'login'%}">LOGIN</a>
@@ -30,7 +31,7 @@
 
 
 <div class="container">
-<h4>PROJECTS</h4>
+<h4></h4>
 {% if all_project %}
 <div class="container">
   {% for project in all_project %}

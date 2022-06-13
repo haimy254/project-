@@ -1,27 +1,26 @@
-{% extends 'base.html'%} 
-{% include 'home.html' %}{% load static %} {% load crispy_forms_tags%} {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>profile</h1>
-    <h3>User : {{ user.username}}</h3>
-    <div class="col-md-4">
-      {% for profile in profile%}
-      <img
-        src="{{ profile.profile_pic.url }}"
-        class="img-responsive"
-        style="width: 100%; float: center; margin-right: 10px"
-      />
-      <p> Bio :{{ profile.bio }}</p>
-      <p>Contacts :{{ profile.contact}}</p>
-      {% endfor %}
-      {% for project in project %}
-      <div class="container">
-    
-      <p> project:{{ project.title}}</p>
-      
+{% extends 'base.html'%} {% include 'home.html' %}{% load static %} {% load
+crispy_forms_tags%} {% block content %}
+<section class="pro-view">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>profile</h1>
+      <h3>User : {{ user.username}}</h3>
+      <div class="col-md-4">
+        {% for profile in profile%}
+        <img
+          src="{{ profile.image.url }}"
+          class="img-responsive"
+          style="width: 100%; float: center; margin-right: 10px"
+        />
+        <p>Bio :{{ profile.bio }}</p>
+        <p>Contacts :{{ profile.contact}}</p>
+        {% endfor %} {% for project in project %}
+        <div class="container">
+          <p>project:{{ project.title}}</p>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
-</div>
+</section>
 {% endblock content %}

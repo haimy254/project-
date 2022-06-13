@@ -1,8 +1,13 @@
-*{
+/* *{
     background-color: black;
-}
+} */
 
 html,body{
-     background-color: black;
-     color: white;
+     background-color: #343a40;
+    color: #dc2f02;
+    font-family: 'Special Elite', cursive;
+}
+
+.pro-view{
+    color: #dc2f02;
 }
