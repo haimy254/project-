@@ -1,4 +1,5 @@
-import profile
+# import profile
+# from turtle import title
 from django.shortcuts import render,redirect
 from .models import Project
 from django.db import transaction
@@ -78,8 +79,34 @@ def save_project(request):
 def display_projects(request):
     # get all projects from db
     project=Project.objects.all();
+    # reviews = Review.objects.get(project=id)
+    
     return render(request,'project_detail.html',{'all_project':project})
+
+def rev(request, project):
+    project = Project.objects.get(title=project)
+    print (request.user)
+    print(project)
+    reviews =Review.objects.filter(user=request.user, project=project).first()
+    print(reviews)
+    
+    if request.method == 'POST':
+        # project= Project.objects.filter_by(pk=id)/
+        review_form = ReviewForm(data=request.POST)
         
+        
+        if review_form.is_valid():
+            
+            review=review_form.save(commit=False)
+            review.user=request.user
+            review.project=project
+            review.save()
+            # messages.success(request, 'Your profile is updated successfully')
+            return redirect(home)
+    else:
+        review_form = ReviewForm()
+    
+    return render(request,'project.html',locals())
 
 @login_required
 @transaction.atomic
@@ -113,14 +140,18 @@ def profile_view(request):
 @transaction.atomic
 def review(request):
     if request.method == 'POST':
-        project= Project.objects.filter_by(pk=id)
+        # project= Project.objects.filter_by(pk=id)/
         review_form = ReviewForm(data=request.POST)
         
         
-        if review_form.is_valid() and project.is_valid():
-            review_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='project_detail')
+        if review_form.is_valid():
+            
+            review=review_form.save(commit=False)
+            review.user=request.user
+            review.project=project
+            review.save()
+            # messages.success(request, 'Your profile is updated successfully')
+            return redirect(home)
     else:
         review_form = ReviewForm()
         project= Project

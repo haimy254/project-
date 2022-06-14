@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %}Project Page{% endblock title %} {%
-block content %} {% load crispy_forms_tags %}
+{% extends "base.html" %} {% block title %}Project Page{% endblock title %} 
+{% block content %} {% load crispy_forms_tags %}
 <div class="container">
   <div class="col-md-8 card mb-4 mt-3">
     <div class="card-body">
@@ -47,7 +47,7 @@ block content %} {% load crispy_forms_tags %}
           ADD A PROJECT
         </button>
       </form>
-      {% endif %} {% for project in all_project %}
+      {% endif %} 
       <div class="project-details-overlay hide" id="project-details-overlay">
         <p id="close-btn">&#215;</p>
         <div class="project-details">
@@ -66,15 +66,33 @@ block content %} {% load crispy_forms_tags %}
               <link href="{{ project.project_link |linebreaks}}" /> Link
             </p>
             <button><a href="{% url 'review'%}">ADD REVIEW</a></button>
-            {{project.reviews.all}} {% if reviews %} {% for review in reviews %}
-            <p class="card-text">{{ review.userbility }}</p>
-            <p class="card-text">{{ review.content }}</p>
-            <p class="card-text">{{ review.design }}</p>
+
+            {% if reviews %} 
+            <p class="card-text">userbility{{ reviews.userbility }}</p>
+            <p class="card-text">{{ reviews.content }}</p>
+            <p class="card-text">{{ reviews.design }}</p>
 
             <p class="card-text">{{ review.review }}</p>
+           {% endif %} 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            {% endfor %} {% endif %} {% endfor %}
-          </div>
+
+
+<div class="container">
+  <div class="col-md-8 card mb-4 mt-3">
+    <div class="card-body txt-light">
+      <h2>REVIEW</h2>
+
+      <div class="col-md-8 card mb-4 mt-3">
+        <div class="card-body">
+          <form method="post" style="margin-top: 1.3em">
+            {{ review_form | crispy }} {% csrf_token %}
+            <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+          </form>
         </div>
       </div>
     </div>

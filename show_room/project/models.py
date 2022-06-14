@@ -33,7 +33,7 @@ class Project(models.Model):
         blank=True
     )
     profile = models.ForeignKey(Profile,on_delete= models.CASCADE)
-    review=models.ManyToManyField('Review', blank=True)
+    # review=models.ManyToManyField('Review', blank=True)
     class Meta:
         ordering = ['-post_time']
 
@@ -59,9 +59,13 @@ class Review(models.Model):
         (9, '9'), 
         (10, '10'),
     )
-    review = models.CharField(max_length=200)
+    # review = models.CharField(max_length=200)
+    review=models.FloatField(default=0,blank=True)
     userbility = models.IntegerField(choices=RATING_CHOICES)
     content = models.IntegerField(choices=RATING_CHOICES)
     design = models.IntegerField(choices=RATING_CHOICES)
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
-         
+    project= models.ForeignKey(Project,on_delete=models.CASCADE, null=True, related_name='reviews')
+    
+    def __str__(self):
+        return f'{self.project}Review'

@@ -15,6 +15,7 @@ urlpatterns = [
     
 	path("search/",search, name="search"), 
     path('project_detail/',display_projects,name="project_detail"),
+    path('project/<project>',rev,name="project"),
     path('profile_view/',profile_view,name="profile"),
     
     path('review/',review,name= 'review'),
