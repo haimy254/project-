@@ -6,3 +6,7 @@ class Profileserializers(serializers.Modelserializers):
         fields = ['image','bio','contact']
         
         
+class ProjectForm(serializers.Modelserializers):
+     class Meta:
+        model = Project
+        fields = ('title','description','project_link','image')
