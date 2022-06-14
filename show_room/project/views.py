@@ -1,5 +1,4 @@
-# import profile
-# from turtle import title
+
 from django.shortcuts import render,redirect
 from .models import Project
 from django.db import transaction
@@ -9,9 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import *
+from .forms import NewUserForm, ProjectForm, ProfileForm, ReviewForm
 from django.views.decorators.csrf import csrf_exempt
-from .serializers import Profileserializers
+from .serializers import Profileserializers,Projectserializers
+from .models import Profile,Project, Review
 
 
 from django.http import JsonResponse
@@ -20,16 +20,41 @@ from rest_framework.response import Response
 # Create your views here.
 
 def register_request(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request,user)
-			messages.success(request, "Registration successful." )
-			return redirect("home")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = NewUserForm()
-	return render (request=request, template_name="home.html", context={"register_form":form})
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            messages.success(request, "Registration successful." )
+            return redirect ('home')
+        messages.success (request, "Unsuccessful registration. Invalid information.")
+        form = NewUserForm
+        
+    return render (request=request, template_name="accounts/register.html")
+
+def save(self, commit=True):
+		user = super(NewUserForm, self).save(commit=False)
+		user.email = self.cleaned_data['email']
+		if commit:
+			user.save()
+		return user
+            
+    # if request.user.is_authenticated:
+    #     return redirect('home')
+    # else:
+        # form = NewUserForm()
+        # if request.method=='POST':
+        #     form = NewUserForm(request.POST)
+        #     if form.is_valid():
+        #         # username = form.cleaned_data.get('username')
+        #         user = form.save()
+        #         # print(good)
+        #         Profile.objects.get_or_create(user=user)
+        #         messages.success(request,'Account for'+'created successfully')
+        #         return redirect ('home')
+            
+        # context= {'register_form': form}
+        # return render (request, "accounts/register.html" ,context)
 
 def login_request(request):
 	if request.method == "POST":
@@ -195,5 +220,13 @@ def search(request):
 def api_profile(request):
     profile= Profile.objects.all()
     serializer = Profileserializers(profile,many=True)
+    
+    return Response(serializer.data)
+
+@api_view(["GET"])
+def api_project(request):
+    profile= Project.objects.all()
+    serializer = Projectserializers(profile,many=True)
+    
     return Response(serializer.data)
 

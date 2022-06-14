@@ -5,7 +5,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('',register_request, name="register"),
+    path("",register_request, name="register"),
     path('home/',home,name= 'home'),
     path('save_project/',save_project,name='save_project'),
     
@@ -19,7 +19,9 @@ urlpatterns = [
     path('profile_view/',profile_view,name="profile"),
     
     path('review/',review,name= 'review'),
-    path('api/',api_profile, name="api")
+    path('api/',api_profile, name="api_1"),
+    path('api2/',api_project, name="api_2")
+    
     
 ]
 

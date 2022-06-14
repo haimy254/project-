@@ -2,12 +2,101 @@
     background-color: black;
 } */
 
-html,body{
-     background-color: #343a40;
-    color: #dc2f02;
-    font-family: 'Special Elite', cursive;
+html,
+body {
+  background-color: #c5dedd;
+  color: #dc2f02;
+  font-family: "Special Elite", cursive;
 }
 
-.pro-view{
-    color: #dc2f02;
+.pro-view {
+  color: #dc2f02;
+}
+
+.bt-login {
+  background-image: url("login.jpeg");
+  width: 80%;
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+  padding-top: 5rem;
+  color: aliceblue;
+  margin-left: 3rem;
+  background-repeat: no-repeat;
+  border-radius: 2rem;
+}
+
+.login-form {
+  margin-left: 2rem;
+}
+
+.lg-title {
+  margin-left: 2rem;
+}
+
+#lg {
+  margin-left: 5rem;
+}
+
+.home {
+  background-image: url("home.jpg");
+  width: 90%;
+  height: 100vh;
+  background-size: auto;
+  background-position: center;
+  padding-top: 5rem;
+  color: aliceblue;
+  margin-left: 3rem;
+  background-repeat: no-repeat;
+  border-radius: 2rem;
+}
+
+.profile-1 {
+  background-color: black;
+
+}
+
+.smb-hero-text {
+  width: 70%;
+  height: 40vh;
+  background: #c5dedd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  border-radius: 2rem;
+}
+
+.smb-hero-section {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  /* background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  ); */
+background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.smb-hero-text span {
+  color: black;
+}
+
+.smb-hero-text p {
+  color: #3e2f5b;
+}
+
+.smb-hero-text h3 {
+  font-weight: 700;
+  color: #3e2f5b;
+  text-align: center;
+}
+.container{
+    text-align: center;
 }

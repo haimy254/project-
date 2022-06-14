@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+
 <div class="container">
+<div class="profile-1">
    <div class="col-md-8 card mb-4 mt-3">
     <div class="card-body txt-light">
         <h1>This is the profile page for {{user.username}}</h1>
@@ -12,6 +14,7 @@
       <button type="submit" class="btn btn-primary btn-lg">
       ADD A PROFILE
       </button>
+    </div>
     </div>
     </div>
 {% endblock content %}
