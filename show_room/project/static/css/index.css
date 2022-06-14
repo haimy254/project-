@@ -106,3 +106,16 @@ background-repeat: no-repeat;
 color: #000;
 padding-top: 2px;
 }
+
+.project1{
+    background-image: url("project1.jpg");
+  width: 90%;
+  height: 100vh;
+  background-size: auto;
+  background-position: center;
+  padding-top: 5rem;
+  color: aliceblue;
+  margin-left: 3rem;
+  background-repeat: no-repeat;
+  border-radius: 2rem;
+}
