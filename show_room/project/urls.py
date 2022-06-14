@@ -12,12 +12,14 @@ urlpatterns = [
     path('logout/',user_logout,name='user_logout'),
     path('login/',login_request,name="login"),
      path('profile/',save_profile, name='user_profile'),
-     
+    
+	path("search/",search, name="search"), 
     path('project_detail/',display_projects,name="project_detail"),
     path('profile_view/',profile_view,name="profile"),
     
     path('review/',review,name= 'review'),
-    path('api/',api_view, name="api")
+    path('api/',api_profile, name="api")
+    
 ]
 
 

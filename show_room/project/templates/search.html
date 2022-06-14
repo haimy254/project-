@@ -1,6 +1,6 @@
 {% extends 'base.html'%} {% block content%}
 <div class="card">
-  {% if images%}
+  {% if project%}
   <img src="{{project.image.url}}" alt="" style="width: 500px" />
   <div class="p-4">
     <p>user: {{project.user}}</p>

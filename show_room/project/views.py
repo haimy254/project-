@@ -1,3 +1,4 @@
+import profile
 from django.shortcuts import render,redirect
 from .models import Project
 from django.db import transaction
@@ -9,6 +10,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
+from .serializers import Profileserializers
 
 
 from django.http import JsonResponse
@@ -111,15 +113,17 @@ def profile_view(request):
 @transaction.atomic
 def review(request):
     if request.method == 'POST':
+        project= Project.objects.filter_by(pk=id)
         review_form = ReviewForm(data=request.POST)
         
-        if review_form.is_valid():
+        
+        if review_form.is_valid() and project.is_valid():
             review_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='project_detail')
     else:
         review_form = ReviewForm()
-        
+        project= Project
     return render(request,'review.html', { 'review_form': review_form})
 @transaction.atomic
 def display_review(request):
@@ -130,13 +134,6 @@ def display_review(request):
         
     return render(request,'profile_detail.html',{'reviews':review,'project':project})
 
-# @api_view(["GET"])
-# def profile_details(request):
-#     api_urls = {
-#         "profile view":'/task-profile/',
-#         "create":"/task-create/",
-#     }
-#     return JsonResponse(api_urls,request)
 
 @csrf_exempt
 def search(request):   
@@ -145,10 +142,10 @@ def search(request):
        
        
        
-        project_found_by_title=Project.objects.get(title=search_term)
+        project_found_by_image=Project.objects.get(title=search_term)
         
-        if project_found_by_title:
-            found_projects=project_found_by_title
+        if project_found_by_image:
+            found_projects=project_found_by_image
             print(found_projects)
             message = f"{search_term}" 
             
@@ -161,3 +158,11 @@ def search(request):
     else:
         message = "You haven't searched for any image"
         return render(request, 'search.html',{"message":message})    
+    
+    
+@api_view(["GET"])
+def api_profile(request):
+    profile= Profile.objects.all()
+    serializer = Profileserializers(profile,many=True)
+    return Response(serializer.data)
+

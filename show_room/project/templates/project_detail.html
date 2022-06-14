@@ -1,12 +1,9 @@
-{% extends "base.html" %} {% block title %}Project Page{% endblock title %} {%
-block content %} {% load crispy_forms_tags %}
+{% extends "base.html" %} {% block title %}Project Page{% endblock title %} 
+{% block content %} {% load crispy_forms_tags %}
 <div class="container">
   <div class="col-md-8 card mb-4 mt-3">
     <div class="card-body">
       <h2>projects</h2>
-      <button class="btn btn-secondary btn-lg">
-        <a href="{% url 'home'%}">HOME</a>
-      </button>
       <form action="{% url 'search'%}" method="POST">
         <div class="input-group">
           <div class="form-outline">
@@ -22,7 +19,7 @@ block content %} {% load crispy_forms_tags %}
             <label
               class="form-label"
               for="form1"
-              placeholder="search image by name...."
+              placeholder="search project by title...."
             ></label>
           </div>
           <button
@@ -54,7 +51,7 @@ block content %} {% load crispy_forms_tags %}
       <div class="project-details-overlay hide" id="project-details-overlay">
         <p id="close-btn">&#215;</p>
         <div class="project-details">
-          <div class="card-body">
+          <div class="card text">
             <img
               src="{{ project.image.url }}"
               alt=""
@@ -66,8 +63,7 @@ block content %} {% load crispy_forms_tags %}
               project:description{{ project.description }}
             </p>
             <p class="card-text">
-              <link href="{{ project.project_link |linebreaks}}" />{{
-              project.project_link}}
+              <link href="{{ project.project_link |linebreaks}}" /> Link
             </p>
             <button><a href="{% url 'review'%}">ADD REVIEW</a></button>
 
@@ -85,3 +81,14 @@ block content %} {% load crispy_forms_tags %}
   </div>
 </div>
 {% endblock %}
+
+<div class="card text-white bg-danger mb-3" style="max-width: 18rem">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Danger card title</h5>
+    <p class="card-text">
+      Some quick example text to build on the card title and make up the bulk of
+      the card's content.
+    </p>
+  </div>
+</div>

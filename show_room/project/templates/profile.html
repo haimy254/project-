@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Profile Page{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-   <div class="row my-3 p-3">
+   <div class="col-md-8 card mb-4 mt-3">
+    <div class="card-body txt-light">
         <h1>This is the profile page for {{user.username}}</h1>
     </div>
       <!-- FORM HERE -->
@@ -15,3 +15,18 @@
     </div>
     </div>
 {% endblock content %}
+
+<div class="col-md-8 card mb-4 mt-3">
+    <div class="card-body txt-light">
+      <h2>REVIEW</h2>
+
+      <div class="col-md-8 card mb-4 mt-3">
+        <div class="card-body">
+          <form method="post" style="margin-top: 1.3em">
+            {{ review_form | crispy }} {% csrf_token %}
+            <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
