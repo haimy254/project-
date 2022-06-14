@@ -39,7 +39,7 @@ body {
 }
 
 .home {
-  background-image: url("home.jpg");
+  background-image: url("home1.jpg");
   width: 90%;
   height: 100vh;
   background-size: auto;
@@ -65,6 +65,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-left: 1rem;
+  opacity: 80%;
   border-radius: 2rem;
 }
 
@@ -99,4 +100,9 @@ background-repeat: no-repeat;
 }
 .container{
     text-align: center;
+}
+
+.user{
+color: #000;
+padding-top: 2px;
 }

@@ -50,7 +50,7 @@
         <a class="nav-item nav-link" href="{% url 'user_logout' %}"> LOGOUT</a>
     </div>
      {% if user.is_authenticated %}
-      <p>Hi {{user.username}}</p>
+      <p class="user">Hi {{user.username}}</p>
        {% endif %}
   </div>
 </nav>
