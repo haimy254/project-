@@ -1,0 +1,14 @@
+{% extends 'base.html'%} {% block content%}
+<div class="card">
+  {% if images%}
+  <img src="{{project.image.url}}" alt="" style="width: 500px" />
+  <div class="p-4">
+    <p>user: {{project.user}}</p>
+    <p>title: {{project.title}}</p>
+    <p>Description: {{project.description}}</p>
+  </div>
+  {% else %}
+  <h2>No images found {{message}}</h2>
+  {% endif %}
+</div>
+{% endblock%}

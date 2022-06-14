@@ -8,6 +8,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
+from django.views.decorators.csrf import csrf_exempt
+
 
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -128,11 +130,34 @@ def display_review(request):
         
     return render(request,'profile_detail.html',{'reviews':review,'project':project})
 
-@api_view(["GET"])
-def api(request):
-    api_urls = {
-        "profile view":'/task-profile/',
-        "create":"/task-create/",
-    }
-    return JsonResponse(api_urls,request)
-    
+# @api_view(["GET"])
+# def profile_details(request):
+#     api_urls = {
+#         "profile view":'/task-profile/',
+#         "create":"/task-create/",
+#     }
+#     return JsonResponse(api_urls,request)
+
+@csrf_exempt
+def search(request):   
+    if request.method=='POST':
+        search_term = request.POST.get("title")
+       
+       
+       
+        project_found_by_title=Project.objects.get(title=search_term)
+        
+        if project_found_by_title:
+            found_projects=project_found_by_title
+            print(found_projects)
+            message = f"{search_term}" 
+            
+            return render(request, 'search.html',{"message":message,"projects": found_projects})  
+        else:
+            message="no such resource found"
+            projects=Project.objects.all()
+            return render(request,'project_detail.html',{"message":message,'project':projects})
+              
+    else:
+        message = "You haven't searched for any image"
+        return render(request, 'search.html',{"message":message})    
