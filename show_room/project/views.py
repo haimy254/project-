@@ -1,14 +1,17 @@
 from django.shortcuts import render,redirect
 from .models import Project
 from django.db import transaction
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-# from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
+
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 # Create your views here.
 
 def register_request(request):
@@ -124,3 +127,12 @@ def display_review(request):
         project = Project.objects.all(pk=id);
         
     return render(request,'profile_detail.html',{'reviews':review,'project':project})
+
+@api_view(["GET"])
+def api(request):
+    api_urls = {
+        "profile view":'/task-profile/',
+        "create":"/task-create/",
+    }
+    return JsonResponse(api_urls,request)
+    

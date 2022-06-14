@@ -17,7 +17,7 @@ urlpatterns = [
     path('profile_view/',profile_view,name="profile"),
     
     path('review/',review,name= 'review'),
-    
+    path('api/',api_view, name="api")
 ]
 
 
