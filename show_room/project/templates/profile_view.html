@@ -6,9 +6,9 @@ crispy_forms_tags%} {% block content %}
     <h1>profile</h1>
     <h3>User : {{ user.username}}</h3>
     <div class="col-md-4">
-      {% for profiles in profile%}
+      {% for profile in profile%}
       <img
-        src="{{ profile.image.url }}"
+        src="{{ user_profile.image.url }}"
         class="img-responsive"
         style="width: 100%; float: center; margin-right: 10px"
       />

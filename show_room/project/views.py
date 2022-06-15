@@ -66,11 +66,15 @@ def save_project(request):
         project_form = ProjectForm(data=request.POST)
        
         if project_form.is_valid(): 
+         
             
             obj=project_form.save(commit=False)
-            obj.profile_id=request.user.id
+            
+            obj.user=request.user
+            #obj.profile=Profile
+            
             obj.save()
-            return HttpResponseRedirect('home')
+            return HttpResponseRedirect('/project_view')
     else:
         project_form = ProjectForm()
 		# new_project='new_prpoject'
@@ -101,7 +105,7 @@ def rev(request, project):
             review=review_form.save(commit=False)
             review.user=request.user
             # review.project=project
-            review.save()
+            review_form.save()
             # messages.success(request, 'Your profile is updated successfully')
             return redirect(home)
     else:
@@ -114,6 +118,7 @@ def rev(request, project):
 def save_profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        
 
         if profile_form.is_valid():
             Profile.objects.get_or_create(user=request.user)
