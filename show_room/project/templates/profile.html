@@ -9,7 +9,7 @@
         <h1>This is the profile page for {{user.username}}</h1>
     </div>
       <!-- FORM HERE -->
-       <form method="post" style="margin-top: 1.3em" action="/save-profile/">
+       <form method="post" style="margin-top: 1.3em" enctype="mutlipart/form-data">
       {{ profile_form | crispy }} {% csrf_token %}
       <button type="submit" class="btn btn-primary btn-lg">
       ADD A PROFILE

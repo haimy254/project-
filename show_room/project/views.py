@@ -61,9 +61,8 @@ def home(request):
 @login_required
 @transaction.atomic
 def save_project(request):
-    request.user.id = request.user
     if request.method == 'POST':
-        project_form = ProjectForm(data=request.POST)
+        project_form = ProjectForm(request.POST)
        
         if project_form.is_valid(): 
          
@@ -71,10 +70,11 @@ def save_project(request):
             obj=project_form.save(commit=False)
             
             obj.user=request.user
-            #obj.profile=Profile
+            profile= Profile.objects.get(user=request.user)
+            obj.profile= profile
             
             obj.save()
-            return HttpResponseRedirect('/project_view')
+            return redirect('project_detail')
     else:
         project_form = ProjectForm()
 		# new_project='new_prpoject'
@@ -84,9 +84,9 @@ def save_project(request):
 def display_projects(request,):
     # get all projects from db
     project=Project.objects.all();
-    reviews = Review.objects.all()
+    review = Review.objects.all()
     
-    return render(request,'project_detail.html',{'all_project':project,'review':reviews})
+    return render(request,'project_detail.html',{'all_project':project,'review':review})
 
 def rev(request, project):
     project = Project.objects.get(title=project)
@@ -117,18 +117,25 @@ def rev(request, project):
 @transaction.atomic
 def save_profile(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileForm(request.POST, request.FILES)
         
 
         if profile_form.is_valid():
-            Profile.objects.get_or_create(user=request.user)
-            profile_form.save()
+            profile=profile_form.save()
+            profile.user=request.user
+            print(profile_form)
+            print(request.FILES)
+            profile.save()
+            print('works')
+            # Profile.objects.get_or_create(user=request.user)
             
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='profile')
+            return redirect('home')
+        else:
+            print ('form is invalid')
+
     else:
         profile_form = ProfileForm()
-        
     context = {
         'profile_form': profile_form
     }
@@ -144,9 +151,9 @@ def profile_view(request):
 
 @login_required
 @transaction.atomic
-def review(request):
+def review(request,id):
     if request.method == 'POST':
-        # project= Project.objects.filter_by(pk=id)/
+        project= Project.objects.get(pk=id)
         review_form = ReviewForm(data=request.POST)
         
         
@@ -154,7 +161,7 @@ def review(request):
             
             review=review_form.save(commit=False)
             review.user=request.user
-            # review.project=project
+            review.project=project
             review.save()
             # messages.success(request, 'Your profile is updated successfully')
             return redirect(home)
@@ -169,7 +176,7 @@ def display_review(request):
         review=Review.objects.all();
         # project = Project.objects.all(pk=id);
         
-    return render(request,'profile_detail.html',{'reviews':review})
+    return render(request,'profile_detail.html',{'review':review})
 
 
 @csrf_exempt

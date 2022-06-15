@@ -13,10 +13,10 @@ class Profile(models.Model):
         def __str__(self):
             return self.user.username
         
-        def save(self):
-            super().save()
+        # def save(self):
+        #     self.save()
 
-            img = Project(self.profile_pic.path)
+            # img = Project(self.image.path)
 
 
     

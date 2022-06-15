@@ -43,7 +43,7 @@
         Your project is awaiting reviewing
       </div>
       {% else %}
-      <form method="post" style="margin-top: 1.3em" action="/save_project/">
+      <form method="post" style="margin-top: 1.3em" enctype="mutlipart/form-data">
         {{ project_form | crispy }} {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-lg">
           ADD A PROJECT
@@ -68,11 +68,11 @@
             
               <a href="{{ project.project_link}}" /> Link </a>
           
-            <button><a href="{% url 'review'%}">ADD REVIEW</a></button>
+            <button><a href="{% url 'review' project.id %}">ADD REVIEW</a></button>
              {% if reviews %} {% for review in reviews %}
-            <p class="card-text">{{ reviews.userbility }}</p>
-            <p class="card-text">{{ reviews.content }}</p>
-            <p class="card-text">{{ reviews.design }}</p>
+            <p class="card-text">{{ review.userbility }}</p>
+            <p class="card-text">{{ review.content }}</p>
+            <p class="card-text">{{ review.design }}</p>
 
             <p class="card-text">{{ reviews.review }}</p>
 

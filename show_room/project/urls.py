@@ -11,14 +11,14 @@ urlpatterns = [
     
     path('logout/',user_logout,name='user_logout'),
     path('login/',login_request,name="login"),
-     path('profile/',save_profile, name='user_profile'),
+     path('profile/',save_profile, name='profile'),
     
 	path("search/",search, name="search"), 
     path('project_detail/',display_projects,name="project_detail"),
     path('project/<project>',rev,name="project"),
-    path('profile_view/',profile_view,name="profile"),
+    path('profile_view/',profile_view,name="profile_view"),
     
-    path('review/',review,name= 'review'),
+    path('review/<int:id>',review,name= 'review'),
     path('api/',api_profile, name="api_1"),
     path('api2/',api_project, name="api_2")
     

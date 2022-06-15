@@ -45,8 +45,8 @@
       <a class="nav-item nav-link" href="{% url 'login'%}">LOGIN</a>
       <a class="nav-item nav-link" href="{% url 'project_detail'%} ">PROJECTS</a>
       <a class="nav-item nav-link" href="{% url 'save_project'%}">ADD PROJECT</a>
-      <a class="nav-item nav-link" href="{% url 'user_profile'%}">Add PROFILE</a>
-      <a class="nav-item nav-link" href="{% url 'profile' %}"> view profile</a>
+      <a class="nav-item nav-link" href="{% url 'profile'%}">Add PROFILE</a>
+      <a class="nav-item nav-link" href="{% url 'profile_view' %}"> view profile</a>
         <a class="nav-item nav-link" href="{% url 'user_logout' %}"> LOGOUT</a>
     </div>
      {% if user.is_authenticated %}
