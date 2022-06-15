@@ -2,12 +2,10 @@
  {% block content %} 
  {% load crispy_forms_tags %}
 
-
-
-<div class="prject1"></div>
+<div class="container">
   <div class="col-md-8 card mb-4 mt-3">
     <div class="card-body">
-      <h2>projects</h2>
+      <h2>PROJECTS</h2>
       <form action="{% url 'search'%}" method="POST">
         <div class="input-group">
           <div class="form-outline">
@@ -52,30 +50,31 @@
         </button>
       </form>
       {% endif %} {% for project in all_project %}
-      <div class="project-details-overlay hide" id="project-details-overlay">
+      <div class="container">
         <p id="close-btn">&#215;</p>
-        <div class="project-details">
-          <div class="card text">
+        
+          <div class="card">
             <img
               src="{{ project.image.url }}"
               alt=""
               style="cursor: pointer; max-height: 170px; min-height: 170px"
             />
-            <p class="card-text">user :{{ project.user }}</p>
+            <div class="card-body">
+            <p class="card-text">user : {{ project.user }}</p>
             <p class="card-text">Title: {{ project.title }}</p>
             <p class="card-text">
-              project:description{{ project.description }}
+              project: description{{ project.description }}
             </p>
-            <p class="card-text">
-              <link href="{{ project.project_link |linebreaks}}" /> Link
-            </p>
+            
+              <a href="{{ project.project_link}}" /> Link </a>
+          
             <button><a href="{% url 'review'%}">ADD REVIEW</a></button>
-            {{project.reviews.all}} {% if reviews %} {% for review in reviews %}
-            <p class="card-text">{{ review.userbility }}</p>
-            <p class="card-text">{{ review.content }}</p>
-            <p class="card-text">{{ review.design }}</p>
+             {% if reviews %} {% for review in reviews %}
+            <p class="card-text">{{ reviews.userbility }}</p>
+            <p class="card-text">{{ reviews.content }}</p>
+            <p class="card-text">{{ reviews.design }}</p>
 
-            <p class="card-text">{{ review.review }}</p>
+            <p class="card-text">{{ reviews.review }}</p>
 
             {% endfor %} {% endif %} {% endfor %}
           </div>

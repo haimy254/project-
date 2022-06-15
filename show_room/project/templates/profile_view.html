@@ -6,7 +6,7 @@ crispy_forms_tags%} {% block content %}
     <h1>profile</h1>
     <h3>User : {{ user.username}}</h3>
     <div class="col-md-4">
-      {% for profile in profile%}
+      {% for profiles in profile%}
       <img
         src="{{ profile.image.url }}"
         class="img-responsive"
@@ -14,7 +14,7 @@ crispy_forms_tags%} {% block content %}
       />
       <p>Bio :{{ profile.bio }}</p>
       <p>Contacts :{{ profile.contact}}</p>
-      {% endfor %} {% for project in project %}
+      {% endfor %} {% for project in project%}
       <div class="container">
         <p>project:{{ project.title}}</p>
       </div>

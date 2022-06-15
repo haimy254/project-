@@ -17,44 +17,19 @@ from .models import Profile,Project, Review
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
 # Create your views here.
-
 def register_request(request):
-    if request.method == 'POST':
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request,user)
-            messages.success(request, "Registration successful." )
-            return redirect ('home')
-        messages.success (request, "Unsuccessful registration. Invalid information.")
-        form = NewUserForm
-        
-    return render (request=request, template_name="accounts/register.html")
-
-def save(self, commit=True):
-		user = super(NewUserForm, self).save(commit=False)
-		user.email = self.cleaned_data['email']
-		if commit:
-			user.save()
-		return user
-            
-    # if request.user.is_authenticated:
-    #     return redirect('home')
-    # else:
-        # form = NewUserForm()
-        # if request.method=='POST':
-        #     form = NewUserForm(request.POST)
-        #     if form.is_valid():
-        #         # username = form.cleaned_data.get('username')
-        #         user = form.save()
-        #         # print(good)
-        #         Profile.objects.get_or_create(user=user)
-        #         messages.success(request,'Account for'+'created successfully')
-        #         return redirect ('home')
-            
-        # context= {'register_form': form}
-        # return render (request, "accounts/register.html" ,context)
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			messages.success(request, "Registration successful." )
+			return redirect("home")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = NewUserForm()
+	return render (request=request, template_name="accounts/register.html", context={"register_form":form})
 
 def login_request(request):
 	if request.method == "POST":
@@ -86,6 +61,7 @@ def home(request):
 @login_required
 @transaction.atomic
 def save_project(request):
+    request.user.id = request.user
     if request.method == 'POST':
         project_form = ProjectForm(data=request.POST)
        
@@ -94,19 +70,19 @@ def save_project(request):
             obj=project_form.save(commit=False)
             obj.profile_id=request.user.id
             obj.save()
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect('home')
     else:
         project_form = ProjectForm()
 		# new_project='new_prpoject'
     return render(request,'project_detail.html', { 'project_form': project_form})
 
 @login_required
-def display_projects(request):
+def display_projects(request,):
     # get all projects from db
     project=Project.objects.all();
-    # reviews = Review.objects.get(project=id)
+    reviews = Review.objects.all()
     
-    return render(request,'project_detail.html',{'all_project':project})
+    return render(request,'project_detail.html',{'all_project':project,'review':reviews})
 
 def rev(request, project):
     project = Project.objects.get(title=project)
@@ -124,14 +100,14 @@ def rev(request, project):
             
             review=review_form.save(commit=False)
             review.user=request.user
-            review.project=project
+            # review.project=project
             review.save()
             # messages.success(request, 'Your profile is updated successfully')
             return redirect(home)
     else:
         review_form = ReviewForm()
     
-    return render(request,'project.html',locals())
+    return render(request,'project_detail.html',locals())
 
 @login_required
 @transaction.atomic
@@ -173,22 +149,22 @@ def review(request):
             
             review=review_form.save(commit=False)
             review.user=request.user
-            review.project=project
+            # review.project=project
             review.save()
             # messages.success(request, 'Your profile is updated successfully')
             return redirect(home)
     else:
         review_form = ReviewForm()
-        project= Project
+        # project= Project
     return render(request,'review.html', { 'review_form': review_form})
 @transaction.atomic
 def display_review(request):
     
     if request.method=="GET":
         review=Review.objects.all();
-        project = Project.objects.all(pk=id);
+        # project = Project.objects.all(pk=id);
         
-    return render(request,'profile_detail.html',{'reviews':review,'project':project})
+    return render(request,'profile_detail.html',{'reviews':review})
 
 
 @csrf_exempt
